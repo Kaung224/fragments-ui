@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { signIn, getUser } from "../auth";
+import { getUserFragments } from "../api";
+import { set } from "mongoose";
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -9,6 +11,7 @@ export default function Home() {
       const currentUser = await getUser();
       if (currentUser) {
         setUser(currentUser);
+        const userFragments = await getUserFragments(currentUser);
       }
     }
     init();
